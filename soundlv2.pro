@@ -1,4 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    testsoundlib
+    testsoundlib \
+    soundlv2lib

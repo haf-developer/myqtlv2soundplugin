@@ -1,0 +1,3 @@
+Purpose, usage and installation. Filled up later...
+
+Read license.txt
