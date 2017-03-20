@@ -1,5 +1,7 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
+    soundlv2lib \
+    uiforms \
     testsoundlib \
-    soundlv2lib
+    soundQtGUIAutoTest

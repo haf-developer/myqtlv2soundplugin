@@ -15,12 +15,20 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+QString MainWindow::GetTestingText()
+{
+    return ui->lineEdit_2->text();
+}
+
 void MainWindow::on_pushButton_clicked()
 {
     //Something to show that button was clicked.
     ui->lineEdit->setText("Pushed");
-    Soundlv2lib mysound;
-    int myproblem = mysound.Init();
+    int myproblem = 100;
+
+    Soundlv2lib& mysound=Soundlv2lib::Instance();
+    myproblem = mysound.Init();
+
     QString problemtext=QString::number(myproblem);
     ui->lineEdit_2->setText(problemtext);
 }

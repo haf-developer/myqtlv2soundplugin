@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <soundlv2lib.h>
 
+
 namespace Ui {
 class MainWindow;
 }
@@ -16,6 +17,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    QString GetTestingText();
 private slots:
     void on_pushButton_clicked();
 

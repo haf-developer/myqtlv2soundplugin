@@ -1,15 +1,14 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2016-12-29T21:13:06
+# Project created by QtCreator 2017-03-14T18:59:46
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui widgets
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
-TARGET = testsoundlib
-TEMPLATE = app
+TARGET = uiforms
+TEMPLATE = lib
+CONFIG += staticlib
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked as deprecated (the exact warnings
@@ -22,30 +21,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+SOURCES += \
+    mainwindow.cpp
 
-SOURCES += main.cpp
+HEADERS += \
+    mainwindow.h
+unix {
+    target.path = /usr/lib
+    INSTALLS += target
+}
 
-HEADERS  +=
+FORMS += \
+    mainwindow.ui
 
-FORMS    +=
-
-DISTFILES += \
-    license.txt \
-    readme.txt
-
-
-INCLUDEPATH += $$PWD/../uiforms $$PWD/../soundlv2lib
-DEPENDPATH += $$PWD/../uiforms
-
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../uiforms/release/ -luiforms
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../uiforms/debug/ -luiforms
-else:unix: LIBS += -L$$OUT_PWD/../uiforms/ -luiforms
-
-win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../uiforms/release/libuiforms.a
-else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../uiforms/debug/libuiforms.a
-else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../uiforms/release/uiforms.lib
-else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../uiforms/debug/uiforms.lib
-else:unix: PRE_TARGETDEPS += $$OUT_PWD/../uiforms/libuiforms.a
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../build-soundlv2-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/soundlv2lib/release/ -lsoundlv2lib
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../build-soundlv2-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/soundlv2lib/debug/ -lsoundlv2lib
