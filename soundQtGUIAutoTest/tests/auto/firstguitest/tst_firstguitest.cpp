@@ -25,6 +25,7 @@ private slots:
     //From example at http://doc.qt.io/qt-5/qttestlib-tutorial3-example.html
     void testGui();
     void testAppForm();
+    void internationalization();
 
 
 };
@@ -61,6 +62,24 @@ void firstguitest::testAppForm()
     MainWindow w;
     w.show();
     QCOMPARE(w.GetTestingText(), QString("plugin init"));
+}
+
+void firstguitest::internationalization()
+{
+    MainWindow w;
+    w.show();
+    //Obtain combobox from mainwindow.
+    //Iterate until QComboBox is found; Note that this doesn't
+    //work with multiple QComboBoxes.
+    QComboBox *combotest=NULL;
+    combotest=w.findChild<QComboBox*>();
+    if(combotest!=NULL)
+    {
+        combotest->setCurrentIndex(1);
+        //Choose Finnish language from combobox.
+    }
+    //If right QComboBox intem doesn't get selected test fails.
+    QCOMPARE(w.GetTestingText(), QString("pluginin alustus kerrat"));
 }
 
 //Test for failing testcase

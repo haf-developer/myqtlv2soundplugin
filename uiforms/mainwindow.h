@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <soundlv2lib.h>
-
+#include <QTranslator>
 
 namespace Ui {
 class MainWindow;
@@ -18,8 +18,18 @@ public:
     ~MainWindow();
 
     QString GetTestingText();
+
+protected:
+    QTranslator *translator;
+    // Overrided event handlers
+    // Misc. protected functions
+    // virtual void changeEvent(QEvent *); //From QWidget
+    void changeEvent(QEvent *event);
+
 private slots:
     void on_pushButton_clicked();
+
+    void on_comboBox_currentIndexChanged(int index);
 
 private:
     Ui::MainWindow *ui;
