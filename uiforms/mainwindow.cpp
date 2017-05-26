@@ -56,7 +56,7 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
      * https://bugreports.qt.io/browse/QTBUG-48416
      *
      */
-    QString translatspath = QCoreApplication::applicationDirPath()+"/../../../soundlv2/uiforms";
+    QString translatspath = QCoreApplication::applicationDirPath();
 
     //Remove old transtalor
     if(translator != NULL)

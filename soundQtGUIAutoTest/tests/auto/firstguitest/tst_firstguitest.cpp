@@ -22,9 +22,9 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
     void test_case1(); //Failing test case
-    //From example at http://doc.qt.io/qt-5/qttestlib-tutorial3-example.html
     void testGui();
     void testAppForm();
+    void testFormButton();
     void internationalization();
 
 
@@ -64,8 +64,35 @@ void firstguitest::testAppForm()
     QCOMPARE(w.GetTestingText(), QString("plugin init"));
 }
 
+void firstguitest::testFormButton()
+{
+    MainWindow w;
+    w.show();
+    //Obtain QPushButton from mainwindow.
+    //Iterate until QPushButton is found;
+    QPushButton *pushButton=NULL;
+    pushButton=w.findChild<QPushButton*>();
+    if(pushButton!=NULL)
+    {
+        QSignalSpy spy(pushButton, SIGNAL(clicked(bool)));
+        if(spy.count() < 1)
+        {
+            pushButton->click();
+            int i = 0;
+            while (w.GetTestingText()!="1" && i++ < 10)
+            {
+                QTest::qWait(250);
+            }
+            pushButton->click();
+        }
+    }
+    QCOMPARE(w.GetTestingText(), QString("2"));
+}
+
+
 void firstguitest::internationalization()
 {
+    bool neverhere=true;
     MainWindow w;
     w.show();
     //Obtain combobox from mainwindow.
@@ -75,10 +102,27 @@ void firstguitest::internationalization()
     combotest=w.findChild<QComboBox*>();
     if(combotest!=NULL)
     {
-        combotest->setCurrentIndex(1);
-        //Choose Finnish language from combobox.
+        QSignalSpy spy(combotest, SIGNAL(currentIndexChanged(int)));
+        if(spy.count() < 1)
+        {
+            //Choose Finnish language from combobox.
+            combotest->setCurrentIndex(1);
+            if(spy.count() == 1)
+            {
+                QList<QVariant> arguments = spy.takeFirst(); // take the first signal
+                if(arguments.at(0).toInt() >= 1)
+                {
+                    int i = 0;
+                    QString ts=QString("plugin init");
+                    while (w.GetTestingText()==ts && i++ < 50)
+                    {
+                        QTest::qWait(250);
+                    }
+                    neverhere=false;
+                }
+            }
+        }
     }
-    //If right QComboBox intem doesn't get selected test fails.
     QCOMPARE(w.GetTestingText(), QString("pluginin alustus kerrat"));
 }
 

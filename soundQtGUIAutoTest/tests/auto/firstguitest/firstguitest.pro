@@ -28,3 +28,25 @@ else:unix: LIBS += -L$$PWD/../../../../../build-soundlv2-Desktop_Qt_5_8_0_MSVC20
 
 INCLUDEPATH += $$PWD/../../../../soundlv2lib
 DEPENDPATH += $$PWD/../../../../soundlv2lib
+
+#For copying translation files
+message("Project config debugging messages")
+message($$OUT_PWD)
+message($$PWD)
+COPYSOURCE=$$PWD/../../../../uiforms/
+message($$COPYSOURCE)
+FILESTOCOPY *= $$files($$COPYSOURCE*.qm)
+message($$FILESTOCOPY)
+
+CONFIG(release, debug|release) {
+    MYDESTDIR = $$OUT_PWD/release
+} else {
+    MYDESTDIR = $$OUT_PWD/debug
+}
+
+FILESTOCOPY2=$$PWD/../../../../uiforms/*.qm
+copydata.commands = $(COPY_FILE) $$shell_path($$FILESTOCOPY2) $$shell_path($$MYDESTDIR)
+first.depends = $(first) copydata
+export(first.depends)
+export(copydata.commands)
+QMAKE_EXTRA_TARGETS += first copydata
