@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += multimedia
+QT       += multimedia widgets
 
 QT       -= gui
 
@@ -24,10 +24,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES += soundlv2lib.cpp
+SOURCES += soundlv2lib.cpp \
+    pluginview.cpp
 
 HEADERS += soundlv2lib.h\
-        soundlv2lib_global.h
+        soundlv2lib_global.h \
+    pluginview.h
 
 unix {
     target.path = /usr/lib

@@ -2,6 +2,9 @@
 #define SOUNDLV2LIB_H
 
 #include "soundlv2lib_global.h"
+#include <QtWidgets/QWidget>
+#include <QLineEdit>
+
 
 /*
  * This class is singleton because it acts as plugin container.
@@ -23,12 +26,14 @@ class SOUNDLV2LIBSHARED_EXPORT Soundlv2lib
 public:
     static Soundlv2lib& Instance();
     int Init();
-
+    void WindowInit(QWidget *aparent);
+    QLineEdit *lineEdit;
 private:
     static int initialized;
     static int p_initialization; //Guard for threads
     int post_initialization;
     static Soundlv2lib *p_instance;
+    QWidget *pluginwidget;
     Soundlv2lib();
     ~Soundlv2lib();
 };

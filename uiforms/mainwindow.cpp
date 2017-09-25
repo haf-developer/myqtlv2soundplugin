@@ -44,9 +44,11 @@ void MainWindow::on_pushButton_clicked()
 
     Soundlv2lib& mysound=Soundlv2lib::Instance();
     myproblem = mysound.Init();
+    mysound.WindowInit(this->centralWidget());
 
     QString problemtext=QString::number(myproblem);
     ui->lineEdit_2->setText(problemtext);
+
 }
 
 void MainWindow::on_comboBox_currentIndexChanged(int index)

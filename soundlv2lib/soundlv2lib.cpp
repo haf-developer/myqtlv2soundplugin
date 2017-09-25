@@ -1,12 +1,16 @@
 #include "soundlv2lib.h"
+#include <QLayout>
 #include <assert.h>
+#include "pluginview.h"
 
 int Soundlv2lib::initialized=0;
 int Soundlv2lib::p_initialization=0;
 Soundlv2lib* Soundlv2lib::p_instance=0;
 
 Soundlv2lib::Soundlv2lib()
+//, post_initialization=0
 {
+    pluginwidget=NULL;
     post_initialization = p_initialization;
 }
 
@@ -57,4 +61,25 @@ int Soundlv2lib::Init()
 
     ++initialized;
     return initialized;
+}
+
+void Soundlv2lib::WindowInit(QWidget *aparent)
+{
+    if(pluginwidget==NULL)
+    {
+        pluginwidget = new PluginView( aparent );
+        //QLayout *lparent = aparent->layout();
+        //pluginwidget->setLayout(lparent);
+        //lparent->addWidget(pluginwidget);
+        lineEdit = new QLineEdit(aparent);
+        lineEdit->setObjectName(QStringLiteral("PluginlineEdit"));
+        lineEdit->setGeometry(QRect(80, 240, 131, 41));
+        pluginwidget->setGeometry(QRect(230, 140, 200, 200));
+        //lineEdit->setText(QApplication::translate("MainWindow", "plugin init", Q_NULLPTR));
+        QString str = "Dynamic Layouts";
+        lineEdit->setText(str);
+        //lineEdit->setText(tr("Dynamic Layouts"));
+        lineEdit->show();
+        pluginwidget->show();
+    }
 }
