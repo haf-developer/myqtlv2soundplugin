@@ -55,12 +55,17 @@ INCLUDEPATH += $$PWD/../soundlv2lib
 DEPENDPATH += $$PWD/../soundlv2lib
 
 
+
 #Following is needed for copying translation files
-CONFIG(release, debug|release) {
+MYDESTDIR = $$OUT_PWD
+
+win32:CONFIG(release, debug|release) {
     MYDESTDIR = $$OUT_PWD/release
-} else {
+} else:win32 {
     MYDESTDIR = $$OUT_PWD/debug
 }
+message("Project config debugging messages")
+message($$MYDESTDIR)
 
 FILESTOCOPY2=$$PWD/../uiforms/*.qm
 copydata.commands = $(COPY_FILE) $$shell_path($$FILESTOCOPY2) $$shell_path($$MYDESTDIR)

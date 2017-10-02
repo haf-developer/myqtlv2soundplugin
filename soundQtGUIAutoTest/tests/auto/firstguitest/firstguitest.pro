@@ -24,7 +24,7 @@ else:unix: PRE_TARGETDEPS += $$OUT_PWD/../../../../uiforms/libuiforms.a
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../build-soundlv2-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/soundlv2lib/release/ -lsoundlv2lib
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../build-soundlv2-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/soundlv2lib/debug/ -lsoundlv2lib
-else:unix: LIBS += -L$$PWD/../../../../../build-soundlv2-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/soundlv2lib/ -lsoundlv2lib
+else:unix: LIBS += -L$$PWD/../../../../../build-soundlv2-Desktop-Debug/soundlv2lib/ -lsoundlv2lib
 
 INCLUDEPATH += $$PWD/../../../../soundlv2lib
 DEPENDPATH += $$PWD/../../../../soundlv2lib
@@ -38,11 +38,15 @@ message($$COPYSOURCE)
 FILESTOCOPY *= $$files($$COPYSOURCE*.qm)
 message($$FILESTOCOPY)
 
-CONFIG(release, debug|release) {
+MYDESTDIR = $$OUT_PWD
+
+win32:CONFIG(release, debug|release) {
     MYDESTDIR = $$OUT_PWD/release
-} else {
+} else:win32 {
     MYDESTDIR = $$OUT_PWD/debug
 }
+message("Project config debugging messages")
+message($$MYDESTDIR)
 
 FILESTOCOPY2=$$PWD/../../../../uiforms/*.qm
 copydata.commands = $(COPY_FILE) $$shell_path($$FILESTOCOPY2) $$shell_path($$MYDESTDIR)
