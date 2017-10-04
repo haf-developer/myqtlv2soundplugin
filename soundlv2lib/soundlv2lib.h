@@ -5,6 +5,7 @@
 #include <QtWidgets/QWidget>
 #include <QLineEdit>
 
+#include "soundlv2qthost.h"
 
 /*
  * This class is singleton because it acts as plugin container.
@@ -28,6 +29,7 @@ public:
     int Init();
     void WindowInit(QWidget *aparent);
     QLineEdit *lineEdit;
+    Soundlv2QtHost *qtlv2host;
 private:
     static int initialized;
     static int p_initialization; //Guard for threads

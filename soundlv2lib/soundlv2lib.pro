@@ -25,13 +25,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += soundlv2lib.cpp \
-    pluginview.cpp
+    pluginview.cpp \
+    soundlv2qthost.cpp
 
 HEADERS += soundlv2lib.h\
         soundlv2lib_global.h \
-    pluginview.h
+    pluginview.h \
+    soundlv2qthost.h
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+unix: CONFIG += link_pkgconfig
+unix: PKGCONFIG += lilv-0
+unix: PKGCONFIG += lv2

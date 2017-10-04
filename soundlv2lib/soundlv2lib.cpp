@@ -3,19 +3,27 @@
 #include <assert.h>
 #include "pluginview.h"
 
+//lv2 things
+//#include "lv2/lv2plug.in/ns/lv2core/lv2.h"
+#include <lv2.h>
+
+//#define AMP_URI "http://lv2plug.in/plugins/eg-amp"
+
 int Soundlv2lib::initialized=0;
 int Soundlv2lib::p_initialization=0;
 Soundlv2lib* Soundlv2lib::p_instance=0;
 
 Soundlv2lib::Soundlv2lib()
-//, post_initialization=0
 {
     pluginwidget=NULL;
+    qtlv2host=NULL;
     post_initialization = p_initialization;
 }
 
 Soundlv2lib::~Soundlv2lib()
 {
+    delete qtlv2host;
+    delete pluginwidget;
 
 }
 
@@ -81,5 +89,7 @@ void Soundlv2lib::WindowInit(QWidget *aparent)
         //lineEdit->setText(tr("Dynamic Layouts"));
         lineEdit->show();
         pluginwidget->show();
+        qtlv2host = new Soundlv2QtHost();
+        lineEdit->setText( qtlv2host->infohostapi() );
     }
 }
